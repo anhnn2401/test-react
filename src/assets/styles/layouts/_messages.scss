@@ -1,0 +1,36 @@
+.form-login {
+  margin: 0 auto;
+  .label-form {
+    text-align: center;
+  }
+}
+.control-button {
+  justify-content: space-around;
+}
+.sort {
+  background-color: #007bff;
+  border-radius: 5px;
+  .nav-link {
+    color: #fff;
+
+  }
+}
+.panel-body {
+  .table-striped {
+    text-align: center;
+    .filter-name {
+      width: 80%;
+    }
+  }
+}
+.hidden {
+  display: none;
+}
+.sort_selected::after {
+  content: '\f00c';
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  margin: 0px 0px 0px 10px;
+  display: inline-block;
+}
