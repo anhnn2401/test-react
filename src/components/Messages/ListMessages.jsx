@@ -8,7 +8,7 @@ class ListMessages extends Component {
     super(props)
     this.state = {
       filterName: '',
-      filterStatus: -1,
+      filterStatus: 'tat ca',
       keyword: ''
     }
     this.handleChange = this.handleChange.bind(this)
@@ -25,14 +25,15 @@ class ListMessages extends Component {
       name: name === 'filterName' ? value : this.state.filterName,
       status: name === 'filterStatus' ? value : this.state.filterStatus
     }
+    // console.log(filter.status);
     this.props.onFilterMessage(filter)
     this.setState({
       [name]: value
     })
   }
 
-  handleChangeStatus (id) {
-    this.props.onChangeStatus(id)
+  handleChangeStatus (id, status) {
+    // this.props.onChangeStatus(dataListMessage.id, dataListMessage.status)
   }
 
   handleEditMessage (dataEdit) {
@@ -53,7 +54,7 @@ class ListMessages extends Component {
     } = this.props
     const filterName = filter.name
     const filterStatus = filter.status
-
+    console.log(filter);
     // filter
     if (filter) {
       if (filter.name) {
@@ -62,10 +63,10 @@ class ListMessages extends Component {
         })
       }
       dataMessages = dataMessages.filter((dataMessage) => {
-        if (filter.status === -1) {
+      if (filter.status === 'tat ca') {
           return dataMessage
         } else {
-          return dataMessage.status === (filter.status === 1)
+          return dataMessage.status === (filter.status === 'an' ? 'an' : 'kich hoat')
         }
       })
     }
@@ -100,7 +101,7 @@ class ListMessages extends Component {
     }
 
     const listMessages = dataMessages.map((dataListMessage, index) => {
-      // console.log(typeof dataListMessage.status)
+      // console.log( dataListMessage.status)
       return (
         <tr key={index}>
           <td>{index + 1}</td>
@@ -109,9 +110,9 @@ class ListMessages extends Component {
           <td>
             <button
               type='button'
-              className={dataListMessage.status ? 'btn btn-success' : 'btn btn-danger'}
-              onClick={() => this.handleChangeStatus(dataListMessage.id)}
-            >{dataListMessage.status ? 'Kích hoạt' : 'Ẩn'}
+              className={dataListMessage.status === 'kich hoat' ? 'btn btn-success' : 'btn btn-danger'}
+              onClick={() => this.props.onChangeStatus(dataListMessage.id, dataListMessage.status)}
+            >{dataListMessage.status === 'kich hoat' ? 'Kích hoạt' : 'Ẩn'}
             </button>
           </td>
           <td>
@@ -135,56 +136,56 @@ class ListMessages extends Component {
       )
     })
     return (
-      <div>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Message</th>
-              <th>Status</th>
-              <th>Options</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td />
-              <td>
-                <input
-                  type='text'
-                  className='form-control'
-                  name='filterName'
-                  value={filterName}
-                  onChange={this.handleChange}
-                />
-              </td>
-              <td>
-                {/* <input
-                  type='text'
-                  className='form-contro'"
-                  name='filterName'
-                  value={filterName}
-                  onChange={this.onChange}
-                /> */}
-              </td>
-              <td>
-                <select
-                  className='form-control'
-                  name='filterStatus'
-                  value={filterStatus}
-                  onChange={this.handleChange}
-                >
-                  <option value={-1}>Tất Cả</option>
-                  <option value={0}>Ẩn</option>
-                  <option value={1}>Kích Hoạt</option>
-                </select>
-              </td>
-              <td />
-            </tr>
-            {listMessages}
-          </tbody>
-        </Table>
-      </div>
+      // <div className="container">
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td />
+            <td>
+              <input
+                type='text'
+                className='form-control'
+                name='filterName'
+                value={filterName}
+                onChange={this.handleChange}
+              />
+            </td>
+            <td>
+              {/* <input
+                type='text'
+                className='form-contro'"
+                name='filterName'
+                value={filterName}
+                onChange={this.onChange}
+              /> */}
+            </td>
+            <td>
+              <select
+                className='form-control'
+                name='filterStatus'
+                value={this.state.filterStatus}
+                onChange={this.handleChange}
+              >
+                <option value='tat ca'>Tất Cả</option>
+                <option value='an'>Ẩn</option>
+                <option value='kich hoat'>Kích Hoạt</option>
+              </select>
+            </td>
+            <td />
+          </tr>
+          {listMessages}
+        </tbody>
+      </Table>
+      // {/* </div> */}
     )
   }
 }
@@ -199,8 +200,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onChangeStatus: (id) => {
-      dispatch(actions.changeStatus(id))
+    onChangeStatus: (id,status) => {
+      dispatch(actions.changeStatus(id,status))
     },
     onEditMessage: (dataListMessage) => {
       dispatch(actions.editMessage(dataListMessage))

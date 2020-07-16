@@ -7,13 +7,13 @@ import { Provider } from 'react-redux'
 import { store } from './stores'
 import { CookiesProvider } from 'react-cookie'
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <CookiesProvider>
       <Provider store={store}>
         <App />
       </Provider>
-    </CookiesProvider>
-  </React.StrictMode>,
+    </CookiesProvider>,
+  // {/* </React.StrictMode> */}
   document.getElementById('root')
 )
 

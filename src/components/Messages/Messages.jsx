@@ -14,26 +14,22 @@ import PropTypes from 'prop-types'
 import { withCookies } from 'react-cookie'
 
 class Messages extends Component {
-  // static propTypes = {
-  //   cookies: instanceOf(Cookies).isRequired
-  // };
   constructor (props) {
     super(props)
     const { cookies } = props
-    // cookies.set('account', {ID: 'admin', password: 'admin'})
     this.state = {
-      // account: cookies.get('account') || {ID:'admin', password: 'admin'}
       accountAccess: cookies.get('token') || ''
     }
+    // console.log(window.location)
+
     if (!cookies.get('token')) {
-      props.history.push('/login')
+      const url = `/login?redirect=${window.location.pathname}`
+      props.history.push(url)
     }
     this.handleChangeID = this.handleChangeID.bind(this)
     this.handleChangeID = this.handleChangeID.bind(this)
     this.handleToggleFormMessage = this.handleToggleFormMessage.bind(this)
     this.handleClearData = this.handleClearData.bind(this)
-
-    // chandlesole.log(this.state, typeof this.state);
   }
 
   handleChangeID (account) {
@@ -57,7 +53,7 @@ class Messages extends Component {
       id: '',
       name: '',
       content: '',
-      status: false
+      status: 'an'
     })
   }
 
@@ -78,7 +74,7 @@ Messages.propTypes = {
 const mapStateToProps = (state) => {
   // console.log(typeof state.messages.account.ID);
   return {
-    loginToken: state.messages.account.ID,
+    // loginToken: state.messages.account.ID,
     isDisplay: state.messages.isDisplayForm
   }
 }

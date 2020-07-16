@@ -1,3 +1,4 @@
 import FormLogin from './FormLogin'
 import Register from './Register'
-export { FormLogin, Register }
+import Logout from './Logout'
+export { FormLogin, Register, Logout }

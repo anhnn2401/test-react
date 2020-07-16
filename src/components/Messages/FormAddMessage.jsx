@@ -9,11 +9,13 @@ class FormAddMessage extends Component {
       id: '',
       name: '',
       content: '',
-      status: false
+      status: 'an'
     }
+    console.log(this.state);
     this.handleChangeMessage = this.handleChangeMessage.bind(this)
     this.handleAddMessage = this.handleAddMessage.bind(this)
     this.clearData = this.clearData.bind(this)
+    this.handleCloseForm = this.handleCloseForm.bind(this)
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -33,11 +35,11 @@ class FormAddMessage extends Component {
   }
 
   handleChangeMessage (event) {
-    let value = event.target.value
+    const value = event.target.value
     const name = event.target.name
-    if (name === 'status') {
-      value = value === 'true'
-    }
+    // if (name === 'status') {
+    //   value = value === 'true'
+    // }
     console.log(name, value, typeof value)
     this.setState({
       [name]: value
@@ -49,7 +51,7 @@ class FormAddMessage extends Component {
       id: '',
       name: '',
       content: '',
-      status: false
+      status: 'an'
     })
   }
 
@@ -72,7 +74,7 @@ class FormAddMessage extends Component {
     const {
       dataEdit
     } = this.props
-    // console.log(this.props.dataEdit);
+    // console.log(this.props.dataEdit.status, typeof this.props.dataEdit.status);
     return (
       <div>
         <h1 style={{ textAlign: 'center' }}>
@@ -107,8 +109,8 @@ class FormAddMessage extends Component {
               value={this.state.status}
               onChange={this.handleChangeMessage}
             >
-              <option value='true'>Kích hoạt</option>
-              <option value='false'>Ẩn</option>
+              <option value='kich hoat'>Kích hoạt</option>
+              <option value='an'>Ẩn</option>
             </select>
           </div>
           <div className='btn d-flex justify-content-center'>

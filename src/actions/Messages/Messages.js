@@ -45,10 +45,11 @@ export function deleteMessage (id) {
     id
   }
 }
-export function changeStatus (id) {
+export function changeStatus (id, status) {
   return {
     type: types.CHANGE_STATUS,
-    id
+    id,
+    status
   }
 }
 export function clearData () {

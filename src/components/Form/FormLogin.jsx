@@ -6,6 +6,7 @@ import * as actions from '../../actions/Messages/Messages'
 // import { instanceOf } from 'prop-types';
 import { withCookies } from 'react-cookie'
 import PropTypes from 'prop-types'
+import Header from '../Header/Header'
 
 class FormLogin extends Component {
   // static propTypes = {
@@ -45,16 +46,16 @@ class FormLogin extends Component {
     })
   }
 
-  handleSignIn (e) {
+  async handleSignIn (e) {
     e.preventDefault()
     // alert('ID is ' + this.state.ID + ' Password is ' + this.state.password);
     const { cookies } = this.props
-    this.props.onSubmitForm(this.state)
+    // this.props.onSubmitForm(this.state)
     if (this.state.ID === 'admin' && this.state.password === 'admin') {
-      alert('đăng nhập thành công')
-      cookies.set('token', 'dangnhap', { path: '/' })
+      await cookies.set('token', 'dangnhap', { path: '/' })
       this.setState({ token: 'dangnhap' })
       // this.props.history.push("/messages");
+      console.log(this.props.history)
       this.props.history.goBack()
       // return <Redirect to='/messages' />
     } else {
@@ -74,38 +75,43 @@ class FormLogin extends Component {
   render () {
     // console.log(this.state, typeof this.state.token);
     return (
-      <div className='row container form-login'>
-        <Form
-          className='col-6 form-login'
-          onSubmit={this.handleSignIn}
-        >
-          <Form.Group controlId='formGroupEmail'>
-            <Form.Label className='label-form'>Enter your account</Form.Label>
-            <Form.Control
-              name='ID'
-              type='account'
-              placeholder='Enter your account'
-              // onChange={(e)=>this.onChangeID(e.target.value)}   //mở quản lí trên app
-              onChange={this.handleChangeID}
-            />
-          </Form.Group>
-          <Form.Group controlId='formGroupPassword'>
-            <Form.Label className='label-form'>Enter your password</Form.Label>
-            <Form.Control
-              name='password'
-              type='password'
-              placeholder='Password'
-              onChange={this.handleChangePassword}
-              // onChange={()=>()=>this.props.handleNameChange()}
-            />
-          </Form.Group>
-          <Button
-            variant='primary'
-            type='submit'
+      <div>
+        <Header />
+        <div className='container form-login'>
+          <h1 className='d-flex justify-content-center'>Please login account</h1>
+          <Form
+            className='form-login'
+            onSubmit={this.handleSignIn}
           >
-            Submit
-          </Button>
-        </Form>
+            <Form.Group controlId='formGroupEmail'>
+              <br />
+              <Form.Label className='label-form'>Enter your account</Form.Label>
+              <Form.Control
+                name='ID'
+                type='account'
+                placeholder='Enter your account'
+                // onChange={(e)=>this.onChangeID(e.target.value)}   //mở quản lí trên app
+                onChange={this.handleChangeID}
+              />
+            </Form.Group>
+            <Form.Group controlId='formGroupPassword'>
+              <Form.Label className='label-form'>Enter your password</Form.Label>
+              <Form.Control
+                name='password'
+                type='password'
+                placeholder='Password'
+                onChange={this.handleChangePassword}
+                // onChange={()=>()=>this.props.handleNameChange()}
+              />
+            </Form.Group>
+            <Button
+              variant='primary'
+              type='submit'
+            >
+              Login
+            </Button>
+          </Form>
+        </div>
       </div>
     )
   }

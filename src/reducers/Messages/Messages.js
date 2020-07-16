@@ -14,7 +14,7 @@ const initialState = {
   },
   filter: {
     name: '',
-    status: -1
+    status: 'tat ca'
   },
   keyword: '',
   sort: {
@@ -44,6 +44,7 @@ const findIndex = (data, id) => {
 const Messages = (state = initialState, action) => {
   let id = ''
   let index = -1
+  let status = ''
   const dataNew = [...state.data]
   const account = state.account
   let sort = state.sort
@@ -71,7 +72,7 @@ const Messages = (state = initialState, action) => {
         isDisplayForm: false
       }
     case types.ADD_MESSAGE:
-      // console.log(action.data.status, typeof action.data.status)
+      console.log(action.data, typeof action.data.status)
       newMessage = {
         id: action.data.id,
         name: action.data.name,
@@ -108,11 +109,23 @@ const Messages = (state = initialState, action) => {
       }
     case types.CHANGE_STATUS:
       id = action.id
+      status=action.status
+      // console.log(status)
       index = findIndex(dataNew, id)
       dataNew[index] = {
         ...dataNew[index],
-        status: !dataNew[index].status
+        status: dataNew[index].status === 'an' ? 'kich hoat' : 'an'
       }
+      // if (status === 'an') {
+      //   return {
+      //     status: 'kich hoat'
+      //   }
+      // } else {
+      //   return {
+      //     status: 'an'
+      //   }
+      // }
+      // console.log(dataNew[index].status)
       localStorage.setItem('contentMessages', JSON.stringify(dataNew))
       return {
         ...state,
@@ -124,7 +137,8 @@ const Messages = (state = initialState, action) => {
     // }
     case types.FILTER_MESSAGE:
       filter = action.filter
-      filter.status = parseInt(filter.status)
+      console.log(action);
+      // filter.status = parseInt(filter.status)
       return {
         ...state,
         filter

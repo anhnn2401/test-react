@@ -7,9 +7,12 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 // import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { withCookies } from 'react-cookie'
 
 class Header extends Component {
   render () {
+    const cookies = this.props.allCookies.token
     return (
       <Container fluid>
         <Navbar bg='primary' variant='dark'>
@@ -31,12 +34,17 @@ class Header extends Component {
             <Button variant="outline-light">Search</Button>
           </Form> */}
           <Link
-            to='login'
+            to={!cookies ? 'login' : 'logout'}
           >
-            <Button variant='primary'>Login</Button>
+            <Button
+              variant='primary'
+            >
+              {!cookies ? 'Login' : 'Logout'}
+            </Button>
           </Link>
           <Link
             to='register'
+            className={!cookies ? '' : 'hidden'}
           >
             <Button variant='primary'>Register</Button>
           </Link>
@@ -45,4 +53,10 @@ class Header extends Component {
     )
   }
 }
-export default Header
+
+Header.propTypes = {
+  // cookies: String.isRequired
+  cookies: PropTypes.object
+}
+
+export default withCookies(Header)

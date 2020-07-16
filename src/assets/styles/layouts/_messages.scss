@@ -1,7 +1,11 @@
 .form-login {
+  width: 50%;
   margin: 0 auto;
   .label-form {
     text-align: center;
+  }
+  .btn {
+    width: 100%;
   }
 }
 .control-button {
@@ -33,4 +37,12 @@
   font-style: normal;
   margin: 0px 0px 0px 10px;
   display: inline-block;
+}
+.signin {
+  width: 80%;
+  text-align: center;
+  margin-top: 50px;
+}
+.row {
+  margin: 0 !important;
 }

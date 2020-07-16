@@ -21,7 +21,7 @@ class MessagesInfo extends Component {
       id: '',
       name: '',
       content: '',
-      status: 'false'
+      status: 'an'
     })
   }
 
