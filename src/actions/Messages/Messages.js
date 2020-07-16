@@ -1,4 +1,5 @@
-import * as types from './../Types/ActionTypes';
+import * as types from './../Types/ActionTypes'
+
 export function listAll () {
   return {
     type: types.RECEIVE_DATA,
@@ -52,7 +53,7 @@ export function changeStatus (id) {
 }
 export function clearData () {
   return {
-    type: types.CLEAR_DATA,
+    type: types.CLEAR_DATA
   }
 }
 export function filterMessage (filter) {
@@ -70,6 +71,12 @@ export function searchMessage (keyword) {
 export function sortMessage (sort) {
   return {
     type: types.SORT_MESSAGE,
-    sort,
+    sort
+  }
+}
+export function submitLogin (data) {
+  return {
+    type: types.LOGIN,
+    data
   }
 }

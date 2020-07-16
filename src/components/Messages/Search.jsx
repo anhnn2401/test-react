@@ -1,67 +1,70 @@
-import React, { Component } from 'react';
-import { Form, FormControl } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/Messages/Messages';
+import React, { Component } from 'react'
+import { Form, FormControl } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import * as actions from '../../actions/Messages/Messages'
 class Search extends Component {
-
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
-      keyword : ''
+      keyword: ''
     }
+    this.handleSearch = this.handleSearch.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
-  onSearch = (keyword) => {
-    keyword.preventDefault();
-    this.props.onSearch(this.state.keyword);
+
+  handleSearch (keyword) {
+    keyword.preventDefault()
+    this.props.onSearch(this.state.keyword)
   }
-  onHandleChange = (event) => {
-    event.preventDefault();
-    let value = event.target.value;
+
+  handleChange (event) {
+    event.preventDefault()
+    const value = event.target.value
     this.setState({
-      keyword : value
-    });
+      keyword: value
+    })
   }
-  render() {
+
+  render () {
     return (
       <div>
         {/* <input>
         </input> */}
-        <Form inline 
-          onSubmit={this.onSearch}
+        <Form
+          inline
+          onSubmit={this.handleSearch}
         >
-          <FormControl 
-            type="text" 
-            placeholder="Nhập từ khóa..." 
-            className="mr-sm-2" 
-            name="keyword"
-            onChange={ this.onHandleChange }
+          <FormControl
+            type='text'
+            placeholder='Nhập từ khóa...'
+            className='mr-sm-2'
+            name='keyword'
+            onChange={this.handleChange}
           />
-          <span className="input-group-btn">
-            <button 
-              className="btn btn-primary" 
-              type="button"
-              onClick={ this.onSearch }
+          <span className='input-group-btn'>
+            <button
+              className='btn btn-primary'
+              type='button'
+              onClick={this.handleSearch}
             >
-              <span className="fa fa-search"></span>Tìm
+              <span className='fa fa-search' />Tìm
             </button>
           </span>
         </Form>
         {/* <i className="fa fa-search">aa</i> */}
-        
       </div>
-    );
+    )
   }
 }
 // const mapStateToProps = (state) => {
 //   return {
-    
 //   }
 // }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onSearch : (keyword) => {
-      dispatch(actions.searchMessage(keyword));
-  }
+    onSearch: (keyword) => {
+      dispatch(actions.searchMessage(keyword))
+    }
   }
 }
-export default connect(null, mapDispatchToProps)(Search);
+export default connect(null, mapDispatchToProps)(Search)

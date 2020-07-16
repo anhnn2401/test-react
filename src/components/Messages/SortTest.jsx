@@ -1,84 +1,77 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { NavDropdown } from 'react-bootstrap'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import * as actions from '../../actions/Messages/Messages'
 
 class Sort extends Component {
-
-  onClick = (sortBy, sortValue) => {
-
-    this.props.onSort({
-      by: sortBy,
-      value: sortValue
-    });
+  constructor (props) {
+    super(props)
+    this.state = {
+      sort: {
+        By: '',
+        Value: ''
+      }
+    }
+    this.handleSort = this.handleSort.bind(this)
   }
 
-  render() {
-    var { sort } = this.props;
+  handleSort (sortBy, sortValue) {
+    this.props.onSort({ sortBy, sortValue })
+    this.setState({
+      sort: {
+        By: sortBy,
+        Value: sortValue
+      }
+    })
+  }
 
+  render () {
+    const { sort } = this.state
     return (
-      <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <div className="dropdown">
-          <button
-            className="btn btn-primary dropdown-toggle"
-            type="button"
-            id="dropdownMenu1"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="true"
+      <div className='sort'>
+        <NavDropdown title='Sắp xếp'>
+          <NavDropdown.Item
+            className={(sort.By === 'name' && sort.Value === 1) ? 'sort_selected' : ''}
+            onClick={() => this.handleSort('name', 1)}
           >
-            Sắp Xếp
-                        <span className="fa fa-caret-square-o-down ml-5"></span>
-          </button>
-          <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li onClick={() => this.onClick('name', 1)}>
-              <a role="button" className={(sort.by === 'name' && sort.value === 1) ? 'sort_selected' : ''}>
-                {/*<a role="button">*/}
-                <span className="fa fa-sort-alpha-asc pr-5">
-                  Tên A-Z
-                                </span>
-              </a>
-            </li>
-            <li onClick={() => this.onClick('name', -1)}>
-              <a role="button" className={(sort.by === 'name' && sort.value === -1) ? 'sort_selected' : ''}>
-                {/*<a role="button">*/}
-                <span className="fa fa-sort-alpha-desc pr-5">
-                  Tên Z-A
-                                </span>
-              </a>
-            </li>
-            <li role="separator" className="divider"></li>
-            <li onClick={() => this.onClick('status', 1)}>
-              <a role="button" className={(sort.by === 'status' && sort.value === 1) ? 'sort_selected' : ''}>
-                {/*<a role="button">*/}
-                                Trạng Thái Kích Hoạt
-                            </a>
-            </li>
-            <li onClick={() => this.onClick('status', -1)}>
-              <a role="button" className={(sort.by === 'status' && sort.value === -1) ? 'sort_selected' : ''}>
-                {/*<a role="button">*/}
-                                Trạng Thái Ẩn
-                            </a>
-            </li>
-          </ul>
-        </div>
+            <span className='fa fa-sort-alpha-asc pr-5'>Tên A-Z</span>
+          </NavDropdown.Item>
+          <NavDropdown.Item
+            className={(sort.By === 'name' && sort.Value === -1) ? 'sort_selected' : ''}
+            onClick={() => this.handleSort('name', -1)}
+          >
+            <span className='fa fa-sort-alpha-desc pr-5'>Tên Z-A
+            </span>
+          </NavDropdown.Item>
+          <NavDropdown.Item
+            className={(sort.By === 'status' && sort.Value === 1) ? 'sort_selected' : ''}
+            onClick={() => this.handleSort('status', 1)}
+          >
+            Status Active
+          </NavDropdown.Item>
+          <NavDropdown.Item
+            className={(sort.By === 'status' && sort.Value === -1) ? 'sort_selected' : ''}
+            onClick={() => this.handleSort('status', -1)}
+          >
+            Status Hidden
+          </NavDropdown.Item>
+        </NavDropdown>
       </div>
-    );
+    )
   }
 }
-
 const mapStateToProps = (state) => {
-  console.log(state.messages.sort);
+  // console.log(state.messages.formEditing);
   return {
-    sort: state.messages.sort
-  };
-}
 
-const mapDispatchToProps = (dispatch, props) => { // dispatch mot cai action thanh 1 cai props
+  }
+}
+const mapDispatchToProps = (dispatch, props) => {
   return {
     onSort: (sort) => {
-      dispatch(actions.sortMessage(sort));
+      dispatch(actions.sortMessage(sort))
     }
-  };
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sort);
+export default connect(mapStateToProps, mapDispatchToProps)(Sort)
